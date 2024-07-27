@@ -24,7 +24,7 @@ app.get("/list", async (요청, 응답) => {
   // 응답.send(res[0].title);
 
   //유저에게 ejs 파일 보내는 코드
-  응답.render("list.ejs");
+  응답.render("list.ejs", { posts: res });
 });
 
 const { MongoClient } = require("mongodb");
