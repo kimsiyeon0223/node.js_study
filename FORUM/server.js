@@ -17,6 +17,12 @@ app.get("/shop", (요청, 응답) => {
   응답.send("쇼핑페이지임");
 });
 
+app.get("/list", async (요청, 응답) => {
+  let res = await db.collection("post").find().toArray();
+  console.log(res);
+  응답.send("DB에 있던 게시물");
+});
+
 const { MongoClient } = require("mongodb");
 
 let db;
