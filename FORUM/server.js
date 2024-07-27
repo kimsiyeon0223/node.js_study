@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
+app.set("view engine", "ejs");
 
 app.get("/", (요청, 응답) => {
   //누가 메인페이지에 접속 시
