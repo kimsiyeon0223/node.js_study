@@ -20,8 +20,11 @@ app.get("/shop", (요청, 응답) => {
 
 app.get("/list", async (요청, 응답) => {
   let res = await db.collection("post").find().toArray();
-  console.log(res[0].title); //res : arrray 자료형
-  응답.send(res[0].title);
+  // console.log(res[0].title); //res : arrray 자료형
+  // 응답.send(res[0].title);
+
+  //유저에게 ejs 파일 보내는 코드
+  응답.render("list.ejs");
 });
 
 const { MongoClient } = require("mongodb");
