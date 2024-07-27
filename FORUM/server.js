@@ -19,7 +19,7 @@ app.get("/shop", (요청, 응답) => {
 
 app.get("/list", async (요청, 응답) => {
   let res = await db.collection("post").find().toArray();
-  console.log(res[0]); //res : arrray 자료형
+  console.log(res[0].title); //res : arrray 자료형
   응답.send("DB에 있던 게시물");
 });
 
