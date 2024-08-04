@@ -3,6 +3,8 @@ const app = express();
 
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (요청, 응답) => {
   //누가 메인페이지에 접속 시
@@ -25,6 +27,14 @@ app.get("/list", async (요청, 응답) => {
 
   //유저에게 ejs 파일 보내는 코드
   응답.render("list.ejs", { posts: res });
+});
+
+app.get("/write", (요청, 응답) => {
+  응답.render("write.ejs");
+});
+
+app.get("/add", (요청, 응답) => {
+  console.log(요청.body);
 });
 
 const { MongoClient } = require("mongodb");
