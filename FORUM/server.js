@@ -22,9 +22,6 @@ app.get("/shop", (요청, 응답) => {
 
 app.get("/list", async (요청, 응답) => {
   let res = await db.collection("post").find().toArray();
-  // console.log(res[0].title); //res : arrray 자료형
-  // 응답.send(res[0].title);
-
   //유저에게 ejs 파일 보내는 코드
   응답.render("list.ejs", { posts: res });
 });
@@ -35,10 +32,14 @@ app.get("/write", (요청, 응답) => {
 
 app.post("/add", async (요청, 응답) => {
   console.log(요청.body);
-  await db
-    .collection("post")
-    .insertOne({ title: 요청.body.title, content: 요청.body.content });
-  응답.redirect("/list");
+  if (요청.body.title === "") {
+    응답.send("제목이 입력되지 않았습니다.");
+  } else {
+    await db
+      .collection("post")
+      .insertOne({ title: 요청.body.title, content: 요청.body.content });
+    응답.redirect("/list");
+  }
 });
 
 const { MongoClient } = require("mongodb");
