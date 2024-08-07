@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const { MongoClient, ObjectId } = require("mongodb");
 
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -47,7 +48,13 @@ app.post("/add", async (요청, 응답) => {
   }
 });
 
-const { MongoClient } = require("mongodb");
+app.get("/detail/:aaa", async (요청, 응답) => {
+  let result = await db
+    .collection("post")
+    .findOne({ _id: new ObjectId("66a49ff07de56b7c5b6b9d70") });
+  console.log(요청.params);
+  응답.render("detail.ejs");
+});
 
 let db;
 const url =
