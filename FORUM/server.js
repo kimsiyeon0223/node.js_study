@@ -32,13 +32,18 @@ app.get("/write", (요청, 응답) => {
 
 app.post("/add", async (요청, 응답) => {
   console.log(요청.body);
-  if (요청.body.title === "") {
-    응답.send("제목이 입력되지 않았습니다.");
-  } else {
-    await db
-      .collection("post")
-      .insertOne({ title: 요청.body.title, content: 요청.body.content });
-    응답.redirect("/list");
+  try {
+    if (요청.body.title === "") {
+      응답.send("제목이 입력되지 않았습니다.");
+    } else {
+      await db
+        .collection("post")
+        .insertOne({ title: 요청.body.title, content: 요청.body.content });
+      응답.redirect("/list");
+    }
+  } catch (error) {
+    console.log(error);
+    응답.status(500).send("서버에러");
   }
 });
 
