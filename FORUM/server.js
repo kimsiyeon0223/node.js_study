@@ -33,8 +33,12 @@ app.get("/write", (요청, 응답) => {
   응답.render("write.ejs");
 });
 
-app.get("/add", (요청, 응답) => {
+app.post("/add", async (요청, 응답) => {
   console.log(요청.body);
+  await db
+    .collection("post")
+    .insertOne({ title: 요청.body.title, content: 요청.body.content });
+  응답.redirect("/list");
 });
 
 const { MongoClient } = require("mongodb");
