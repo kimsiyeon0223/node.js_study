@@ -61,6 +61,15 @@ app.get("/detail/:id", async (요청, 응답) => {
   }
 });
 
+app.get("/edit/:id", async (요청, 응답) => {
+  db.collection("post").updateOne({ a: 1 }, { $set: { title: '바보' } });
+  let result = await db
+    .collection("post")
+    .findOne({ _id: new ObjectId(요청.params.id) });
+  console.log(result);
+  응답.render("edit.ejs", { result: result });
+});
+
 let db;
 const url =
   "mongodb+srv://admin:1234@cluster.ist8kmr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster";
